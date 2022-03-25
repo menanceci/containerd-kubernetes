@@ -49,17 +49,19 @@ cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
-EOFsudo sysctl --system
+EOF
+sudo sysctl --system
 
-Disable Swap
+<p>Disable Swap</p>
 
 sudo swapoff -a
 sudo vi /etc/fstab#comment swap disk
-#/swap.img       none    swap    sw      0       0#save and exit :wq
+#/swap.img       none    swap    sw      0       0
+#save and exit :wq
 
 Allow required port for kubernetes or Disable Firewall
 
-sudo ufw disable
+#sudo ufw disable
 
 Setup iptables backend to use iptables-legacy
 
@@ -74,7 +76,8 @@ Add kubernetes repository
 sudo wget https://packages.cloud.google.com/apt/doc/apt-key.gpg
 sudo mv apt-key.gpg /etc/apt/trusted.gpg.d/sudo cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOFsudo apt update
+EOF
+sudo apt update
 sudo apt install -y kubeadm kubelet kubectl
 
 Enable kubelet service but dont start yet
@@ -87,7 +90,7 @@ Do this configuration only on master nodes
 
 Initialize cluster using containerd as container runtime
 
-sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --cri-socket /run/containerd/containerd.sock
+<b>sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --cri-socket /run/containerd/containerd.sock</b>
 
 Note the final result cause we will use it for join worker nodes
 
