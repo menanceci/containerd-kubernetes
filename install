@@ -52,7 +52,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 sudo sysctl --system
 
-<p>Disable Swap</p>
+Disable Swap
 
 sudo swapoff -a
 sudo vi /etc/fstab#comment swap disk
@@ -90,7 +90,7 @@ Do this configuration only on master nodes
 
 Initialize cluster using containerd as container runtime
 
-<b>sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --cri-socket /run/containerd/containerd.sock</b>
+sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --cri-socket /run/containerd/containerd.sock
 
 Note the final result cause we will use it for join worker nodes
 
